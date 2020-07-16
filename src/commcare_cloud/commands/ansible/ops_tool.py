@@ -161,11 +161,10 @@ class PillowResourceReport(CommandBase):
     def run(self, args, manage_args):
         environment = get_environment(args.env_name)
         by_process = _get_pillow_resources_by_name(environment)
-
         headers = ['Pillow', 'Processes']
         rows = [
-            [queue_name, stats['num_processes']]
-            for queue_name, stats in sorted(by_process.items(), key=itemgetter(0))
+            [queue_name, num]
+            for queue_name, num in sorted(by_process.items(), key=itemgetter(0))
         ]
 
         print_table(headers, rows, args.csv)
